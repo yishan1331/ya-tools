@@ -17,12 +17,14 @@ from django.contrib import admin
 from django.urls import path
 from django.conf.urls import include
 from django.contrib.auth import views as auth_views
+from django.contrib.auth.decorators import login_required
 from yaTools import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('login/', auth_views.LoginView.as_view(), name='login'),
+    path('logout', views.log_out, name='logout'),
     path('accounts/', include('allauth.urls')),
     # path('', include(('expenses.urls', 'expenses'), namespace='expenses')),
-    path('', views.index),
+    path('', login_required(views.index)),
 ]

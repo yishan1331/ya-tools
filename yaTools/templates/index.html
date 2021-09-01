@@ -1,7 +1,19 @@
 {% extends "base.html" %}
+{% load static %}
+{% block extra_style_sheet %}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+<link href="{% static 'css/index.css' %}" rel="stylesheet" />
+{% endblock %}
 {% block content %}
-<div class="jumbotron mt-3">
-    <h1>Django YATools HomPage</h1>
-    <a class="btn btn-lg btn-primary" href="" role="button">登出 »</a>
+<div id="index" class="row justify-content-center vh-100">
+    <div class="col align-self-center">
+        <h1>Django YATools HomPage</h1>
+        <button type="button" class="btn btn-info btn-lg w-100 mb-1">記帳本</button>
+        <button type="button" class="btn btn-secondary btn-lg w-100 mb-1" disabled>待辦事項</button>
+        <a class="btn btn-lg btn-primary" href="{% url 'logout' %}" role="button">登出 »</a>
+    </div>
+    {% block extra_script %}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+    {% endblock %}
 </div>
 {% endblock %}

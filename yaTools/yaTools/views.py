@@ -1,5 +1,5 @@
-from django.shortcuts import render
-from django.contrib import auth
+from django.shortcuts import render, redirect
+from django.contrib.auth import login, logout
 
 # Create your views here.
 
@@ -8,6 +8,7 @@ from django.contrib import auth
 
 def index(request):
     return render(request, 'index.html')
+
 
 # 登出
 
