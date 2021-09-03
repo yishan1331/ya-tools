@@ -1,284 +1,171 @@
-{% extends "base.html" %} {% load static %} {% block extra_style_sheet %} {%load socialaccount %}
+{% extends "base.html" %} {% load static %} {% block extra_style_sheet %} {%load
+socialaccount %}
 <link
 	href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css"
 	rel="stylesheet"
 />
 <link href="{% static 'css/login.css' %}" rel="stylesheet" />
 {% endblock %} {% block content %}
-<form id="login" method="get" action="login.php">
-	<!-- component -->
-	<!-- This is an example component -->
-	<div class="font-sans">
-		<div
-			class="
-				relative
-				min-h-screen
-				flex flex-col
-				sm:justify-center
-				items-center
-				bg-gray-100
-			"
-		>
-			<div class="relative sm:max-w-sm w-full">
-				<div
-					class="
-						card
-						bg-blue-400
-						shadow-lg
-						w-full
-						h-full
-						rounded-3xl
-						absolute
-						transform
-						-rotate-6
-					"
-				></div>
-				<div
-					class="
-						card
-						bg-red-400
-						shadow-lg
-						w-full
-						h-full
-						rounded-3xl
-						absolute
-						transform
-						rotate-6
-					"
-				></div>
-				<div
-					class="
-						relative
-						w-full
-						rounded-3xl
-						px-6
-						py-4
-						bg-gray-100
-						shadow-md
-					"
-				>
-					<label
-						for=""
+<div class="mx-auto container vh-100">
+	<form id="login" method="get" action="login.php">
+		<!-- component -->
+		<!-- This is an example component -->
+		<div class="font-sans">
+			<div
+				class="
+					relative
+					min-h-screen
+					flex flex-col
+					sm:justify-center
+					items-center
+					bg-gray-100
+				"
+			>
+				<div class="relative sm:max-w-sm w-full">
+					<div
 						class="
-							block
-							mt-3
-							text-sm text-gray-700 text-center
-							font-semibold
+							card
+							bg-blue-400
+							shadow-lg
+							w-full
+							h-full
+							rounded-3xl
+							absolute
+							transform
+							-rotate-6
+						"
+					></div>
+					<div
+						class="
+							card
+							bg-red-400
+							shadow-lg
+							w-full
+							h-full
+							rounded-3xl
+							absolute
+							transform
+							rotate-6
+						"
+					></div>
+					<div
+						class="
+							relative
+							w-full
+							rounded-3xl
+							px-6
+							py-4
+							bg-gray-100
+							shadow-md
 						"
 					>
-						Login
-					</label>
-					<form method="#" action="#" class="mt-10">
-						<div>
-							<input
-								type="email"
-								placeholder="email"
-								class="
-									mt-1
-									p-4
-									block
-									w-full
-									border-none
-									bg-gray-100
-									h-11
-									rounded-xl
-									shadow-lg
-									hover:bg-blue-100
-									focus:bg-blue-100 focus:ring-0
-								"
-							/>
-						</div>
-
-						<div class="mt-7">
-							<input
-								type="password"
-								placeholder="password"
-								class="
-									mt-1
-									p-4
-									block
-									w-full
-									border-none
-									bg-gray-100
-									h-11
-									rounded-xl
-									shadow-lg
-									hover:bg-blue-100
-									focus:bg-blue-100 focus:ring-0
-								"
-							/>
-						</div>
-
-						<div class="mt-7 flex">
-							<label
-								for="remember_me"
-								class="
-									inline-flex
-									items-center
-									w-full
-									cursor-pointer
-								"
-							>
+						<label
+							for=""
+							class="
+								block
+								mt-3
+								text-sm text-gray-700 text-center
+								font-semibold
+							"
+						>
+							Login
+						</label>
+						<form method="#" action="#" class="mt-10">
+							<div>
 								<input
-									id="remember_me"
-									type="checkbox"
+									type="email"
+									placeholder="email"
 									class="
-										rounded
-										border-gray-300
-										text-indigo-600
-										shadow-sm
-										focus:border-indigo-300
-										focus:ring
-										focus:ring-indigo-200
-										focus:ring-opacity-50
+										mt-1
+										p-4
+										block
+										w-full
+										border-none
+										bg-gray-100
+										h-11
+										rounded-xl
+										shadow-lg
+										hover:bg-blue-100
+										focus:bg-blue-100 focus:ring-0
 									"
-									name="remember"
 								/>
-								<span class="ml-2 text-sm text-gray-600">
-									Recuerdame
-								</span>
-							</label>
-
-							<div class="w-full text-right">
-								<a
-									class="
-										underline
-										text-sm text-gray-600
-										hover:text-gray-900
-									"
-									href="#"
-								>
-									forget password?
-								</a>
 							</div>
-						</div>
 
-						<div class="mt-7">
-							<button
-								class="
-									bg-blue-500
-									w-full
-									py-3
-									rounded-xl
-									text-white
-									shadow-xl
-									hover:shadow-inner
-									focus:outline-none
-									transition
-									duration-500
-									ease-in-out
-									transform
-									hover:-translate-x hover:scale-105
-								"
-							>
-								Login
-							</button>
-						</div>
-
-						<div class="flex mt-7 items-center text-center">
-							<hr
-								class="
-									border-gray-300 border-1
-									w-full
-									rounded-md
-								"
-							/>
-							<label
-								class="
-									block
-									font-medium
-									text-sm text-gray-600
-									w-full
-								"
-							>
-								login with
-							</label>
-							<hr
-								class="
-									border-gray-300 border-1
-									w-full
-									rounded-md
-								"
-							/>
-						</div>
-
-						<div class="flex mt-7 justify-center w-full">
-							{% comment %}
-							<button
-								class="
-									mr-5
-									bg-blue-500
-									border-none
-									px-4
-									py-2
-									rounded-xl
-									cursor-pointer
-									text-white
-									shadow-xl
-									hover:shadow-inner
-									transition
-									duration-500
-									ease-in-out
-									transform
-									hover:-translate-x hover:scale-105
-								"
-							>
-								Facebook
-							</button>
-							<button
-								class="
-									bg-red-500
-									border-none
-									px-4
-									py-2
-									rounded-xl
-									cursor-pointer
-									text-white
-									shadow-xl
-									hover:shadow-inner
-									transition
-									duration-500
-									ease-in-out
-									transform
-									hover:-translate-x hover:scale-105
-								"
-							>
-								Google
-							</button>
-							{% endcomment %}
-							<a
-								class="
-									w-11
-									h-11
-									items-center
-									justify-center
-									inline-flex
-									rounded-2xl
-									font-bold
-									text-lg
-									hover:shadow-lg
-									cursor-pointer
-									transition
-									ease-in
-									duration-300
-								"
-								href="{% provider_login_url 'google' method='oauth2' %}"
-								><img
-									src="https://www.freepnglogos.com/uploads/google-logo-png/google-logo-png-suite-everything-you-need-know-about-google-newest-0.png"
-									width="200"
-									alt="google logo png suite everything you need know about google newest"
-							/></a>
-						</div>
-
-						<div class="mt-7">
-							<div class="flex justify-center items-center">
-								<label class="mr-2"
-									>Don't have an account?</label
-								>
-								<a
-									href="#"
+							<div class="mt-7">
+								<input
+									type="password"
+									placeholder="password"
 									class="
-										text-blue-500
+										mt-1
+										p-4
+										block
+										w-full
+										border-none
+										bg-gray-100
+										h-11
+										rounded-xl
+										shadow-lg
+										hover:bg-blue-100
+										focus:bg-blue-100 focus:ring-0
+									"
+								/>
+							</div>
+
+							<div class="mt-7 flex">
+								<label
+									for="remember_me"
+									class="
+										inline-flex
+										items-center
+										w-full
+										cursor-pointer
+									"
+								>
+									<input
+										id="remember_me"
+										type="checkbox"
+										class="
+											rounded
+											border-gray-300
+											text-indigo-600
+											shadow-sm
+											focus:border-indigo-300
+											focus:ring
+											focus:ring-indigo-200
+											focus:ring-opacity-50
+										"
+										name="remember"
+									/>
+									<span class="ml-2 text-sm text-gray-600">
+										Recuerdame
+									</span>
+								</label>
+
+								<div class="w-full text-right">
+									<a
+										class="
+											underline
+											text-sm text-gray-600
+											hover:text-gray-900
+										"
+										href="#"
+									>
+										forget password?
+									</a>
+								</div>
+							</div>
+
+							<div class="mt-7">
+								<button
+									class="
+										bg-blue-500
+										w-full
+										py-3
+										rounded-xl
+										text-white
+										shadow-xl
+										hover:shadow-inner
+										focus:outline-none
 										transition
 										duration-500
 										ease-in-out
@@ -286,14 +173,130 @@
 										hover:-translate-x hover:scale-105
 									"
 								>
-									Create
-								</a>
+									Login
+								</button>
 							</div>
-						</div>
-					</form>
+
+							<div class="flex mt-7 items-center text-center">
+								<hr
+									class="
+										border-gray-300 border-1
+										w-full
+										rounded-md
+									"
+								/>
+								<label
+									class="
+										block
+										font-medium
+										text-sm text-gray-600
+										w-full
+									"
+								>
+									login with
+								</label>
+								<hr
+									class="
+										border-gray-300 border-1
+										w-full
+										rounded-md
+									"
+								/>
+							</div>
+
+							<div class="flex mt-7 justify-center w-full">
+								{% comment %}
+								<button
+									class="
+										mr-5
+										bg-blue-500
+										border-none
+										px-4
+										py-2
+										rounded-xl
+										cursor-pointer
+										text-white
+										shadow-xl
+										hover:shadow-inner
+										transition
+										duration-500
+										ease-in-out
+										transform
+										hover:-translate-x hover:scale-105
+									"
+								>
+									Facebook
+								</button>
+								<button
+									class="
+										bg-red-500
+										border-none
+										px-4
+										py-2
+										rounded-xl
+										cursor-pointer
+										text-white
+										shadow-xl
+										hover:shadow-inner
+										transition
+										duration-500
+										ease-in-out
+										transform
+										hover:-translate-x hover:scale-105
+									"
+								>
+									Google
+								</button>
+								{% endcomment %}
+								<a
+									class="
+										w-11
+										h-11
+										items-center
+										justify-center
+										inline-flex
+										rounded-2xl
+										font-bold
+										text-lg
+										hover:shadow-lg
+										cursor-pointer
+										transition
+										ease-in
+										duration-300
+									"
+									href="{% provider_login_url 'google' method='oauth2' %}"
+									><img
+										src="https://www.freepnglogos.com/uploads/google-logo-png/google-logo-png-suite-everything-you-need-know-about-google-newest-0.png"
+										width="200"
+										alt="google logo png suite everything you need know about google newest"
+								/></a>
+							</div>
+
+							<div class="mt-7">
+								<div class="flex justify-center items-center">
+									<label class="mr-2"
+										>Don't have an account?</label
+									>
+									<a
+										href="#"
+										class="
+											text-blue-500
+											transition
+											duration-500
+											ease-in-out
+											transform
+											hover:-translate-x hover:scale-105
+										"
+									>
+										Create
+									</a>
+								</div>
+							</div>
+						</form>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-</form>
+	</form>
+</div>
 {% endblock %}

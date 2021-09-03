@@ -15,16 +15,21 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.conf import settings
 from django.conf.urls import include
 from django.contrib.auth import views as auth_views
 from django.contrib.auth.decorators import login_required
 from yaTools import views
 
+# if settings.DEBUG:
+#     urlpatterns += []
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('login/', auth_views.LoginView.as_view(), name='login'),
-    path('logout', views.log_out, name='logout'),
+    path('logout/', views.log_out, name='logout'),
+    # path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('accounts/', include('allauth.urls')),
-    # path('', include(('expenses.urls', 'expenses'), namespace='expenses')),
-    path('', login_required(views.index)),
+    path('', login_required(views.index), name="home"),
+    path('expenses/', include(('expenses.urls', 'expenses'), namespace='expenses')),
 ]
