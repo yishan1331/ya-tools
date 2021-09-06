@@ -1,4 +1,12 @@
-{% extends "base.html" %} {% load static %} {% block content %}
+{% extends "base.html" %} {% load static %}
+{% block style_command %}
+<style>
+	.v-application--wrap{
+		min-height: unset !important;
+	}
+</style>
+{% endblock %}
+{% block content %}
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 	<div class="container-fluid">
 		<a class="navbar-brand" href="{% url 'home' %}">YA Tools</a>
@@ -109,11 +117,31 @@
 						>Email</label
 					>
 					<div class="col-sm-10">
-						<input
-							type="email"
-							class="form-control"
-							id="inputEmail3"
-						/>
+						<v-app>
+							<v-menu
+								v-model="pickerMenu"
+								:close-on-content-click="false"
+								:nudge-right="40"
+								transition="scale-transition"
+								offset-y
+								min-width="auto"
+							>
+								<template v-slot:activator="{ on, attrs }">
+									<v-text-field
+										v-model="picker"
+										label="Picker without buttons"
+										prepend-icon="mdi-calendar"
+										readonly
+										v-bind="attrs"
+										v-on="on"
+									></v-text-field>
+								</template>
+								<v-date-picker
+									v-model="picker"
+									@input="pickerMenu = false"
+								></v-date-picker>
+							</v-menu>
+						</v-app>
 					</div>
 				</div>
 				<div class="row mb-3">
@@ -201,11 +229,19 @@
 </div>
 {% endblock %} {% block script_command %}
 <script>
-	var app = new Vue({
+	const app = new Vue({
 		delimiters: ["[[", "]]"],
 		el: "#expenses_main",
+		vuetify: new Vuetify(),
 		data: {
 			message: "Hello Vue!",
+			myDateTime: "",
+			picker: new Date(
+				Date.now() - new Date().getTimezoneOffset() * 60000
+			)
+				.toISOString()
+				.substr(0, 10),
+			pickerMenu: false,
 		},
 	});
 </script>
