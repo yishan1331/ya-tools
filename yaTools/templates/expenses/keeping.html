@@ -1,0 +1,260 @@
+{% extends "expenses/base.html" %} {% block style_command %}
+<style>
+	.b-calendar-header {
+		display: none !important;
+	}
+	.custom-select {
+		display: inline-block;
+		width: 100%;
+		height: calc(1.5em + 0.75rem + 2px);
+		padding: 0.375rem 1.75rem 0.375rem 0.75rem;
+		font-size: 1rem;
+		font-weight: 400;
+		line-height: 1.5;
+		color: #495057;
+		vertical-align: middle;
+		background: #fff
+			url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='5'%3E%3Cpath fill='%23343a40' d='M2 0L0 2h4zm0 5L0 3h4z'/%3E%3C/svg%3E")
+			no-repeat right 0.75rem center/8px 10px;
+		border: 1px solid #ced4da;
+		border-radius: 0.25rem;
+		-webkit-appearance: none;
+		-moz-appearance: none;
+		appearance: none;
+	}
+</style>
+{% endblock %} {% block content %}
+<div id="expenses_main" class="container mt-3" style="max-width: 700px">
+	<b-tabs v-model="tabIndex" content-class="mt-3" justified>
+		<b-tab title="支出" active>
+			<form>
+				<div class="row mb-3">
+					<label for="datepicker" class="col-sm-2 col-form-label"
+						>日期</label
+					>
+					<div class="col-sm-10">
+						<b-form-datepicker
+							id="datepicker"
+							:date-format-options="{ year: 'numeric', month: 'narrow', day: 'numeric' }"
+							locale="zh"
+							calendar-width="100%"
+							menu-class="w-100"
+							hide-header
+							v-model="date"
+						></b-form-datepicker>
+					</div>
+				</div>
+				<div class="row mb-3">
+					<label for="category" class="col-sm-2 col-form-label"
+						>類別</label
+					>
+					<div class="col-sm-10">
+						<b-form-select
+							id="category"
+							size="lg"
+							v-model="category"
+							:options="category_options"
+						>
+							<template #first>
+								<b-form-select-option :value="null" disabled
+									>-- Please select an option
+									--</b-form-select-option
+								>
+							</template>
+						</b-form-select>
+					</div>
+				</div>
+				<div class="row mb-3">
+					<label for="detail" class="col-sm-2 col-form-label"
+						>細項</label
+					>
+					<div class="col-sm-10">
+						<b-form-select
+							id="detail"
+							size="lg"
+							v-model="detail"
+							:options="detail_options"
+						>
+							<template #first>
+								<b-form-select-option :value="null" disabled
+									>-- Please select an option
+									--</b-form-select-option
+								>
+							</template>
+						</b-form-select>
+					</div>
+				</div>
+				<div class="row mb-3">
+					<label for="amount" class="col-sm-2 col-form-label"
+						>金額</label
+					>
+					<div class="col-sm-10">
+						<b-form-input
+							id="amount"
+							type="number"
+							v-model="amount"
+						></b-form-input>
+					</div>
+				</div>
+				<div class="row mb-3">
+					<label for="remark" class="col-sm-2 col-form-label"
+						>備註</label
+					>
+					<div class="col-sm-10">
+						<b-form-textarea
+							id="remark"
+							v-model="remark"
+							placeholder="Enter something..."
+							rows="3"
+							max-rows="6"
+						></b-form-textarea>
+					</div>
+				</div>
+				<div class="row mb-3">
+					<button type="submit" class="btn btn-primary">送出</button>
+				</div>
+			</form>
+		</b-tab>
+		<b-tab title="收入">
+			<form>
+				<div class="row mb-3">
+					<label for="datepicker" class="col-sm-2 col-form-label"
+						>日期</label
+					>
+					<div class="col-sm-10">
+						<b-form-datepicker
+							id="datepicker"
+							:date-format-options="{ year: 'numeric', month: 'narrow', day: 'numeric' }"
+							locale="zh"
+							calendar-width="100%"
+							menu-class="w-100"
+							hide-header
+							v-model="date"
+						></b-form-datepicker>
+					</div>
+				</div>
+				<div class="row mb-3">
+					<label for="category" class="col-sm-2 col-form-label"
+						>類別</label
+					>
+					<div class="col-sm-10">
+						<b-form-select
+							id="category"
+							size="lg"
+							v-model="category"
+							:options="category_options"
+						>
+							<template #first>
+								<b-form-select-option :value="null" disabled
+									>-- Please select an option
+									--</b-form-select-option
+								>
+							</template>
+						</b-form-select>
+					</div>
+				</div>
+				<div class="row mb-3">
+					<label for="detail" class="col-sm-2 col-form-label"
+						>細項</label
+					>
+					<div class="col-sm-10">
+						<b-form-select
+							id="detail"
+							size="lg"
+							v-model="detail"
+							:options="detail_options"
+						>
+							<template #first>
+								<b-form-select-option :value="null" disabled
+									>-- Please select an option
+									--</b-form-select-option
+								>
+							</template>
+						</b-form-select>
+					</div>
+				</div>
+				<div class="row mb-3">
+					<label for="amount" class="col-sm-2 col-form-label"
+						>金額</label
+					>
+					<div class="col-sm-10">
+						<b-form-input
+							id="amount"
+							type="number"
+							v-model="amount"
+						></b-form-input>
+					</div>
+				</div>
+				<div class="row mb-3">
+					<label for="remark" class="col-sm-2 col-form-label"
+						>備註</label
+					>
+					<div class="col-sm-10">
+						<b-form-textarea
+							id="remark"
+							v-model="remark"
+							placeholder="Enter something..."
+							rows="3"
+							max-rows="6"
+						></b-form-textarea>
+					</div>
+				</div>
+				<div class="row mb-3">
+					<button type="submit" class="btn btn-primary">送出</button>
+				</div>
+			</form>
+		</b-tab>
+	</b-tabs>
+	message [[message]]
+</div>
+{% endblock %} {% block script_command %}
+<script>
+	const app = new Vue({
+		delimiters: ["[[", "]]"],
+		el: "#expenses_main",
+		data() {
+			return {
+				message: "Hello Vue!",
+				tabIndex: 0,
+				date: "",
+				category: null,
+				category_options: [
+					{ value: "A", text: "Option A (from options prop)" },
+					{ value: "B", text: "Option B (from options prop)" },
+				],
+				detail: null,
+				detail_options: [
+					{ value: "A", text: "Option A (from options prop)" },
+					{ value: "B", text: "Option B (from options prop)" },
+				],
+				amount: "",
+				remark: "",
+			};
+		},
+		watch: {
+			tabIndex: {
+				handler(value) {
+					var vm = this;
+					let saveData = [
+						"tabIndex",
+						"category_options",
+						"detail_options",
+					];
+					vm.reset(saveData);
+				},
+			},
+		},
+		methods: {
+			//資料reset
+			reset(keep) {
+				var def = this.$options.data();
+				for (var i = 0; i < keep.length; i++) {
+					def[keep[i]] = this[keep[i]];
+				}
+				Object.assign(this.$data, def);
+				//https://codepen.io/karimcossutti/pen/ObXyKq
+			},
+		},
+	});
+</script>
+{% endblock %}

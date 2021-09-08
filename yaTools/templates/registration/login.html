@@ -1,12 +1,11 @@
-{% extends "base.html" %} {% load static %} {% block extra_style_sheet %} {%load
-socialaccount %}
+{% extends "base.html" %} {% load static %} {% block extra_style_sheet %} {%load socialaccount %}
 <link
 	href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css"
 	rel="stylesheet"
 />
 <link href="{% static 'css/login.css' %}" rel="stylesheet" />
 {% endblock %} {% block content %}
-<div class="mx-auto container vh-100">
+<div class="mx-auto vh-100">
 	<form id="login" method="get" action="login.php">
 		<!-- component -->
 		<!-- This is an example component -->

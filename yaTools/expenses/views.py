@@ -4,5 +4,13 @@ from django.http import HttpResponse
 # Create your views here.
 
 
-def index(request):
-    return render(request, 'expenses/index.html')
+def keeping(request):
+    return render(request, 'expenses/keeping.html')
+
+
+def settings(request):
+    return render(request, 'expenses/settings.html')
+
+
+def reports(request):
+    return render(request, 'expenses/reports.html')

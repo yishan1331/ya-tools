@@ -5,40 +5,68 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Tools</title>
+		<!-- Required Stylesheets -->
 		<link
-			href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
+			type="text/css"
 			rel="stylesheet"
-			integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We"
-			crossorigin="anonymous"
+			href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css"
 		/>
 		<link
-			href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900"
+			type="text/css"
 			rel="stylesheet"
-		/>
-		<link
-			href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css"
-			rel="stylesheet"
-		/>
-		<link
-			href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css"
-			rel="stylesheet"
+			href="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.css"
 		/>
 		{% block extra_style_sheet %} {% endblock %} {% block style_command %}
 		{% endblock %}
-	</head>
-	<body class="h-100">
-		{% block content %} {% endblock %}
-		<script
-			src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
-			integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
-			crossorigin="anonymous"
-		></script>
+		<!-- Load polyfills to support older browsers -->
+		<script src="https://polyfill.io/v3/polyfill.min.js?features=es2015%2CIntersectionObserver"></script>
+
+		<!-- Required scripts -->
 		<!-- 开发环境版本，包含了有帮助的命令行警告 -->
 		<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
 		<!-- 生产环境版本，优化了尺寸和速度 -->
 		<!-- <script src="https://cdn.jsdelivr.net/npm/vue@2"></script> -->
-		<script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
-		{% block script_command %} {% endblock %}
+		<script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.js"></script>
 		{% block extra_script %} {% endblock %}
+	</head>
+	<body class="h-100">
+		<b-navbar toggleable="lg" type="dark" variant="info">
+			<b-navbar-brand href="#">NavBar</b-navbar-brand>
+
+			<b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+
+			<b-collapse id="nav-collapse" is-nav>
+			  <b-navbar-nav>
+				<b-nav-item href="#">Link</b-nav-item>
+				<b-nav-item href="#" disabled>Disabled</b-nav-item>
+			  </b-navbar-nav>
+
+			  <!-- Right aligned nav items -->
+			  <b-navbar-nav class="ml-auto">
+				<b-nav-form>
+				  <b-form-input size="sm" class="mr-sm-2" placeholder="Search"></b-form-input>
+				  <b-button size="sm" class="my-2 my-sm-0" type="submit">Search</b-button>
+				</b-nav-form>
+
+				<b-nav-item-dropdown text="Lang" right>
+				  <b-dropdown-item href="#">EN</b-dropdown-item>
+				  <b-dropdown-item href="#">ES</b-dropdown-item>
+				  <b-dropdown-item href="#">RU</b-dropdown-item>
+				  <b-dropdown-item href="#">FA</b-dropdown-item>
+				</b-nav-item-dropdown>
+
+				<b-nav-item-dropdown right>
+				  <!-- Using 'button-content' slot -->
+				  <template #button-content>
+					<em>User</em>
+				  </template>
+				  <b-dropdown-item href="#">Profile</b-dropdown-item>
+				  <b-dropdown-item href="#">Sign Out</b-dropdown-item>
+				</b-nav-item-dropdown>
+			  </b-navbar-nav>
+			</b-collapse>
+		</b-navbar>
+		{% block content %} {% endblock %}
+		{% block script_command %} {% endblock %}
 	</body>
 </html>

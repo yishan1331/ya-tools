@@ -88,7 +88,25 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
+    },
+    # 'mysql': {
+    #     'ENGINE': 'django.db.backends.mysql',
+    #     'NAME': 'DB_NAME',
+    #     'USER': 'USER',
+    #     'PASSWORD': 'PASSWORD',
+    #     'HOST': 'HOST',  # 若未設定或空字串則會使用本機的資料庫
+    #     'PORT': 'PORT'
+    #     # need : pip install mysql-python
+    # },
+    # 'postgresql': {
+    #     'ENGINE': 'django.db.backends.postgresql_psycopg2',
+    #     'NAME': 'DB_NAME',
+    #     'USER': 'USER',
+    #     'PASSWORD': 'PASSWORD',
+    #     'HOST': 'HOST',  # 若未設定或空字串則會使用本機的資料庫
+    #     'PORT': 'PORT'
+    #     # need : pip install psycopg2
+    # }
 }
 
 
