@@ -1,3 +1,9 @@
+{% load static %}
+{% load i18n %}
+
+<!-- custom filter module -->
+{% load i18n_switcher %}
+
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -17,6 +23,9 @@
 			href="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.css"
 		/> -->
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-vue/2.21.2/bootstrap-vue.min.css" integrity="sha512-YnP4Ql71idaMB+/ZG38+1adSSQotdqvixQ+dQg8x/IFA4heIj6i0BC31W5T5QUdK1Uuwa01YdqdcT42q+RldAg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+		<!-- fontawesomefree -->
+		<link href="{% static 'fontawesomefree/css/fontawesome.css' %}" rel="stylesheet" type="text/css">
+		<link href="{% static 'fontawesomefree/css/solid.css' %}" rel="stylesheet" type="text/css">
 		{% block extra_style_sheet %} {% endblock %} {% block style_command %}
 		{% endblock %}
 		<!-- Load polyfills to support older browsers -->
@@ -28,12 +37,16 @@
 		<!-- 生产环境版本，优化了尺寸和速度 -->
 		<!-- <script src="https://cdn.jsdelivr.net/npm/vue@2"></script> -->
 		<script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.js"></script>
+		<!-- JavaScript Bundle with Popper -->
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+		<!-- fontawesomefree -->
+		<script src="{% static 'fontawesomefree/js/all.min.js' %}"></script>
 		{% block extra_script %} {% endblock %}
 	</head>
 	<body class="h-100">
 		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 			<div class="container-fluid">
-				<a class="navbar-brand" href="{% url 'home' %}">YA Tools</a>
+				<a class="navbar-brand" href="{% url 'home' %}">Money</a>
 				<button
 					class="navbar-toggler"
 					type="button"
@@ -55,8 +68,7 @@
 						<li class="nav-item dropdown">
 							<a
 								class="nav-link dropdown-toggle"
-								href="#"
-								id="navbarDropdownMenuLink"
+								id="setting"
 								role="button"
 								data-bs-toggle="dropdown"
 								aria-expanded="false"
@@ -65,11 +77,11 @@
 							</a>
 							<ul
 								class="dropdown-menu"
-								aria-labelledby="navbarDropdownMenuLink"
+								aria-labelledby="setting"
 							>
 								<li>
-									<a class="dropdown-item" href="#"
-										>收支類別</a
+									<a class="dropdown-item" href="{% url 'expenses:expenses_classification' %}"
+										>分類管理</a
 									>
 								</li>
 								<li>
@@ -82,8 +94,7 @@
 						<li class="nav-item dropdown">
 							<a
 								class="nav-link dropdown-toggle"
-								href="#"
-								id="navbarDropdownMenuLink"
+								id="report"
 								role="button"
 								data-bs-toggle="dropdown"
 								aria-expanded="false"
@@ -92,10 +103,36 @@
 							</a>
 							<ul
 								class="dropdown-menu"
-								aria-labelledby="navbarDropdownMenuLink"
+								aria-labelledby="report"
 							>
 								<li>
 									<a class="dropdown-item" href="#">...</a>
+								</li>
+							</ul>
+						</li>
+						<li class="nav-item dropdown">
+							<a
+								class="nav-link dropdown-toggle"
+								id="language"
+								role="button"
+								data-bs-toggle="dropdown"
+								aria-expanded="false"
+							>
+								語言
+							</a>
+							<ul
+								class="dropdown-menu"
+								aria-labelledby="language"
+							>
+								<li>
+									<a class="dropdown-item" href="{{ request|switch_i18n:'en' }}">
+										<span style="font-size:1em;">🇺🇸 English</span>
+									</a>
+								</li>
+								<li>
+									<a class="dropdown-item" href="{{ request|switch_i18n:'zh-hant' }}">
+										<span style="font-size:1em;">🇹🇼 繁體中文</span>
+									</a>
 								</li>
 							</ul>
 						</li>

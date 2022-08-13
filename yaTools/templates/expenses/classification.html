@@ -1,4 +1,4 @@
-{% extends "expenses/base.html" %} {% load i18n %} {% block style_command %}
+{% extends "expenses/base.html" %} {% block style_command %}
 <style>
 	.b-calendar-header {
 		display: none !important;
@@ -24,19 +24,13 @@
 	}
 </style>
 {% endblock %} {% block content %}
-
-{% trans '日期' as the_date %}
-{% trans '類別' as the_category %}
-{% trans '金額' as the_amount %}
-{% trans '備註' as the_remarks %}
-
 <div id="expenses_main" class="container mt-3" style="max-width: 700px">
 	<b-tabs v-model="tabIndex" content-class="mt-3" justified>
-		<b-tab title="{% trans '支出' %}" active>
+		<b-tab title="支出" active>
 			<form>
 				<div class="row mb-3">
 					<label for="datepicker" class="col-sm-2 col-form-label"
-						>{{ the_date }}</label
+						>日期</label
 					>
 					<div class="col-sm-10">
 						<b-form-datepicker
@@ -52,25 +46,47 @@
 				</div>
 				<div class="row mb-3">
 					<label for="category" class="col-sm-2 col-form-label"
-						>{{ the_category }}</label
+						>類別</label
 					>
 					<div class="col-sm-10">
-						{% for expensecategory in expensecategorylist %}
-						<tr>
-							<td>
-								{% trans expensecategory.name %} |
-								{% blocktrans %}
-									{{ expensecategory.name }}
-								{% endblocktrans %}
-							</td>
-							<td><i class="fa-solid {{ expensecategory.image }}"></i></td>
-						</tr>
-						{% endfor %}
+						<b-form-select
+							id="category"
+							size="lg"
+							v-model="category"
+							:options="category_options"
+						>
+							<template #first>
+								<b-form-select-option :value="null" disabled
+									>-- Please select an option
+									--</b-form-select-option
+								>
+							</template>
+						</b-form-select>
+					</div>
+				</div>
+				<div class="row mb-3">
+					<label for="detail" class="col-sm-2 col-form-label"
+						>細項</label
+					>
+					<div class="col-sm-10">
+						<b-form-select
+							id="detail"
+							size="lg"
+							v-model="detail"
+							:options="detail_options"
+						>
+							<template #first>
+								<b-form-select-option :value="null" disabled
+									>-- Please select an option
+									--</b-form-select-option
+								>
+							</template>
+						</b-form-select>
 					</div>
 				</div>
 				<div class="row mb-3">
 					<label for="amount" class="col-sm-2 col-form-label"
-						>{{ the_amount }}</label
+						>金額</label
 					>
 					<div class="col-sm-10">
 						<b-form-input
@@ -82,7 +98,7 @@
 				</div>
 				<div class="row mb-3">
 					<label for="remark" class="col-sm-2 col-form-label"
-						>{{ the_remarks }}</label
+						>備註</label
 					>
 					<div class="col-sm-10">
 						<b-form-textarea
@@ -99,11 +115,11 @@
 				</div>
 			</form>
 		</b-tab>
-		<b-tab title="{% trans '收入' %}">
+		<b-tab title="收入">
 			<form>
 				<div class="row mb-3">
 					<label for="datepicker" class="col-sm-2 col-form-label"
-						>{{ the_date }}</label
+						>日期</label
 					>
 					<div class="col-sm-10">
 						<b-form-datepicker
@@ -119,24 +135,47 @@
 				</div>
 				<div class="row mb-3">
 					<label for="category" class="col-sm-2 col-form-label"
-						>{{ the_category }}</label
+						>類別</label
 					>
 					<div class="col-sm-10">
-						{% for expensecategory in expensecategorylist %}
-						<tr>
-							<td>
-								{% blocktrans trimmed %}
-									{{ expensecategory.name }}
-								{% endblocktrans %}
-							</td>
-							<td><i class="fa-solid {{ expensecategory.image }}"></i></td>
-						</tr>
-						{% endfor %}
+						<b-form-select
+							id="category"
+							size="lg"
+							v-model="category"
+							:options="category_options"
+						>
+							<template #first>
+								<b-form-select-option :value="null" disabled
+									>-- Please select an option
+									--</b-form-select-option
+								>
+							</template>
+						</b-form-select>
+					</div>
+				</div>
+				<div class="row mb-3">
+					<label for="detail" class="col-sm-2 col-form-label"
+						>細項</label
+					>
+					<div class="col-sm-10">
+						<b-form-select
+							id="detail"
+							size="lg"
+							v-model="detail"
+							:options="detail_options"
+						>
+							<template #first>
+								<b-form-select-option :value="null" disabled
+									>-- Please select an option
+									--</b-form-select-option
+								>
+							</template>
+						</b-form-select>
 					</div>
 				</div>
 				<div class="row mb-3">
 					<label for="amount" class="col-sm-2 col-form-label"
-						>{{ the_amount }}</label
+						>金額</label
 					>
 					<div class="col-sm-10">
 						<b-form-input
@@ -148,7 +187,7 @@
 				</div>
 				<div class="row mb-3">
 					<label for="remark" class="col-sm-2 col-form-label"
-						>{{ the_remarks }}</label
+						>備註</label
 					>
 					<div class="col-sm-10">
 						<b-form-textarea

@@ -13,10 +13,12 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.conf.urls.i18n import i18n_patterns
 from django.contrib import admin
 from django.urls import path
 from django.conf import settings
 from django.conf.urls import include
+from django.utils.translation import gettext_lazy as _
 from django.contrib.auth import views as auth_views
 from django.contrib.auth.decorators import login_required
 from yaTools import views
@@ -24,12 +26,14 @@ from yaTools import views
 # if settings.DEBUG:
 #     urlpatterns += []
 
-urlpatterns = [
+urlpatterns = i18n_patterns(
     path('admin/', admin.site.urls),
+    # django內建的login/logout視圖(預設為registration/login.html和registration/logged_out.html)
     path('login/', auth_views.LoginView.as_view(), name='login'),
-    path('logout/', views.log_out, name='logout'),
     # path('logout/', auth_views.LogoutView.as_view(), name='logout'),
+    path('logout/', views.log_out, name='logout'),
     path('accounts/', include('allauth.urls')),
     path('', login_required(views.index), name="home"),
-    path('expenses/', include(('expenses.urls', 'expenses'), namespace='expenses')),
-]
+    path('rosetta/', include('rosetta.urls')),
+    path(_('expenses/'), include(('expenses.urls', 'expenses'), namespace='expenses')),
+)

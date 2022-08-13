@@ -1,0 +1,120 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-08-13 17:35+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: expenses/expenses.py:20
+msgid "Breakfast"
+msgstr "早餐"
+
+#: expenses/expenses.py:21
+msgid "Lunch"
+msgstr "午餐"
+
+#: expenses/expenses.py:22
+msgid "Dinner"
+msgstr "晚餐"
+
+#: expenses/expenses.py:23
+msgid "Drinks"
+msgstr "飲料"
+
+#: expenses/expenses.py:24
+msgid "Liquor"
+msgstr "酒類"
+
+#: expenses/expenses.py:25
+msgid "Traffic"
+msgstr "交通"
+
+#: expenses/expenses.py:26
+msgid "Shopping"
+msgstr "購物"
+
+#: expenses/expenses.py:27
+msgid "Entertainment"
+msgstr "娛樂"
+
+#: expenses/expenses.py:28
+msgid "Groceries"
+msgstr "日用品"
+
+#: expenses/expenses.py:29
+msgid "Medical"
+msgstr "醫療"
+
+#: expenses/expenses.py:30
+msgid "Social"
+msgstr "社交"
+
+#: expenses/expenses.py:31
+msgid "Gift"
+msgstr "禮物"
+
+#: expenses/expenses.py:32
+msgid "Other"
+msgstr "其他"
+
+#: templates/expenses/keeping.html:28
+msgid "日期"
+msgstr "Date"
+
+#: templates/expenses/keeping.html:29
+msgid "類別"
+msgstr "Category"
+
+#: templates/expenses/keeping.html:30
+msgid "金額"
+msgstr "Amount"
+
+#: templates/expenses/keeping.html:31
+msgid "備註"
+msgstr "Remarks"
+
+#: templates/expenses/keeping.html:35
+msgid "支出"
+msgstr "Expense"
+
+#: templates/expenses/keeping.html:62
+#, python-format
+msgid ""
+"\n"
+"\t\t\t\t\t\t\t\t\t%(expensecategory.name)s\n"
+"\t\t\t\t\t\t\t\t"
+msgstr ""
+
+#: templates/expenses/keeping.html:102
+msgid "收入"
+msgstr "Income"
+
+#: templates/expenses/keeping.html:128
+#, python-format
+msgid "%(expensecategory.name)s"
+msgstr ""
+
+#: yaTools/settings.py:145
+msgid "Traditional Chinese"
+msgstr "繁體中文"
+
+#: yaTools/settings.py:146
+msgid "English"
+msgstr "英文"
+
+#: yaTools/urls.py:38
+msgid "expenses/"
+msgstr ""
