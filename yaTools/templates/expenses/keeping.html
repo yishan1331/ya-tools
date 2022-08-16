@@ -58,10 +58,7 @@
 						{% for expensecategory in expensecategorylist %}
 						<tr>
 							<td>
-								{% trans expensecategory.name %} |
-								{% blocktrans %}
-									{{ expensecategory.name }}
-								{% endblocktrans %}
+								{% trans expensecategory.name_CH %}
 							</td>
 							<td><i class="fa-solid {{ expensecategory.image }}"></i></td>
 						</tr>
@@ -125,9 +122,7 @@
 						{% for expensecategory in expensecategorylist %}
 						<tr>
 							<td>
-								{% blocktrans trimmed %}
-									{{ expensecategory.name }}
-								{% endblocktrans %}
+								{% trans expensecategory.name_CH %}
 							</td>
 							<td><i class="fa-solid {{ expensecategory.image }}"></i></td>
 						</tr>

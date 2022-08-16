@@ -1,7 +1,6 @@
 from django.views.generic import *
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.utils.translation import gettext_lazy as _
-from django.forms.models import model_to_dict
 from .models import Expense, ExpenseCategory, Income
 
 # Create your views here.
@@ -11,48 +10,39 @@ from .models import Expense, ExpenseCategory, Income
 class ExpenseCategoryList(LoginRequiredMixin, ListView):
     model = ExpenseCategory
     ordering = ['id']  # 正向排序
-    paginate_by = 10    # 每頁顯示幾筆
+    # paginate_by = 10    # 每頁顯示幾筆
 
     template_name = 'expenses/keeping.html'
 
     def __init__(self):
         # 預設支出類別選項
         self.default_trans_values = {
-            'Breakfast': _('Breakfast'),  # 早餐
-            'Lunch': _('Lunch'),  # 午餐
-            'Dinner': _('Dinner'),  # 晚餐
-            'Drinks': _('Drinks'),  # 飲料
-            'Liquor': _('Liquor'),  # 酒類
-            'Traffic': _('Traffic'),  # 交通
-            'Shopping': _('Shopping'),  # 購物
-            'Entertainment': _('Entertainment'),  # 娛樂
-            'Groceries': _('Groceries'),  # 日用品
-            'Medical': _('Medical'),  # 醫療
-            'Social': _('Social'),  # 社交
-            'Gift': _('Gift'),  # 禮物
-            'Other': _('Other'),  # 其它
+            '早餐': _('早餐'),  # Breakfast
+            '午餐': _('午餐'),  # Lunch
+            '晚餐': _('晚餐'),  # Dinner
+            '飲料': _('飲料'),  # Drinks
+            '酒類': _('酒類'),  # Liquor
+            '交通': _('交通'),  # Traffic
+            '購物': _('購物'),  # Shopping
+            '娛樂': _('娛樂'),  # Entertainment
+            '日用品': _('日用品'),  # Groceries
+            '醫療': _('醫療'),  # Medical
+            '社交': _('社交'),  # Social
+            '禮物': _('禮物'),  # Gift
+            '其它': _('其它'),  # Other
         }
 
     context_object_name = 'expensecategorylist'
 
-    # def get_queryset(self):
-    #     queryset = super().get_queryset().values_list("name", "name_CH", "image")
-    #     print(queryset)
-    #     print(type(queryset))
-    #     trans_values = {}
-    #     # for i in queryset:
-    #     #     print(i)
-    #     #     newi = model_to_dict(i)
-    #     #     print(newi)
-    #     #     trans_values[newi.name] = _(newi.name)
-    #     print(trans_values)
-    #     return queryset
-
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        # queryset = self.get_queryset()
-        print(self.default_trans_values)
-        context['default_trans_values'] = self.default_trans_values
+        queryset = self.get_queryset().values(
+            "name", "name_CH", "image")
+        print('queryset', queryset)
+
+        # trans_values = {i['name']: _(i['name_CH']) for i in queryset}
+        # print('trans_values:', trans_values)
+        # context['default_trans_values'] = trans_values
         return context
 
 # 新增支出紀錄

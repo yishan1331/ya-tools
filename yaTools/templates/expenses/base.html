@@ -59,7 +59,7 @@
 					<span class="navbar-toggler-icon"></span>
 				</button>
 				<div class="collapse navbar-collapse" id="navbarNavDropdown">
-					<ul class="navbar-nav">
+					<ul class="navbar-nav me-auto" style="--bs-scroll-height: 100px;">
 						<li class="nav-item">
 							<a class="nav-link" aria-current="page" href="{% url 'expenses:expenses_keeping' %}"
 								>記帳</a
@@ -110,33 +110,15 @@
 								</li>
 							</ul>
 						</li>
-						<li class="nav-item dropdown">
-							<a
-								class="nav-link dropdown-toggle"
-								id="language"
-								role="button"
-								data-bs-toggle="dropdown"
-								aria-expanded="false"
-							>
-								語言
-							</a>
-							<ul
-								class="dropdown-menu"
-								aria-labelledby="language"
-							>
-								<li>
-									<a class="dropdown-item" href="{{ request|switch_i18n:'en' }}">
-										<span style="font-size:1em;">🇺🇸 English</span>
-									</a>
-								</li>
-								<li>
-									<a class="dropdown-item" href="{{ request|switch_i18n:'zh-hant' }}">
-										<span style="font-size:1em;">🇹🇼 繁體中文</span>
-									</a>
-								</li>
-							</ul>
-						</li>
 					</ul>
+					<div class="navbar-nav d-flex">
+						<a class="nav-link" href="{{ request|switch_i18n:'en' }}">
+							<span style="font-size:1em;">🇺🇸 English</span>
+						</a>
+						<a class="nav-link" href="{{ request|switch_i18n:'zh-hant' }}">
+							<span style="font-size:1em;">🇹🇼 繁體中文</span>
+						</a>
+					</div>
 				</div>
 			</div>
 		</nav>

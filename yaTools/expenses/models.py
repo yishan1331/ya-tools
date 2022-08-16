@@ -15,7 +15,7 @@ class Expense(models.Model):
         ('Liquor', "fa-martini-glass-citrus"),  # 酒類
         ('Traffic', "fa-bus"),  # 交通
         ('Shopping', "fa-shopify"),  # 購物
-        ('Entertainment', "fa-gamepad"),  # 娛樂
+        ('Entertainment', "fa-bag-shopping"),  # 娛樂
         ('Groceries', "fa-cart-shopping"),  # 日用品
         ('Medical', "fa-hospital"),  # 醫療
         ('Social', "fa-people-group"),  # 社交

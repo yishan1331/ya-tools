@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-13 17:35+0800\n"
+"POT-Creation-Date: 2022-08-16 17:33+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,57 +18,57 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: expenses/expenses.py:20
-msgid "Breakfast"
-msgstr "早餐"
-
 #: expenses/expenses.py:21
-msgid "Lunch"
-msgstr "午餐"
+msgid "早餐"
+msgstr ""
 
 #: expenses/expenses.py:22
-msgid "Dinner"
-msgstr "晚餐"
+msgid "午餐"
+msgstr ""
 
 #: expenses/expenses.py:23
-msgid "Drinks"
-msgstr "飲料"
+msgid "晚餐"
+msgstr ""
 
 #: expenses/expenses.py:24
-msgid "Liquor"
-msgstr "酒類"
+msgid "飲料"
+msgstr ""
 
 #: expenses/expenses.py:25
-msgid "Traffic"
-msgstr "交通"
+msgid "酒類"
+msgstr ""
 
 #: expenses/expenses.py:26
-msgid "Shopping"
-msgstr "購物"
+msgid "交通"
+msgstr ""
 
 #: expenses/expenses.py:27
-msgid "Entertainment"
-msgstr "娛樂"
+msgid "購物"
+msgstr ""
 
 #: expenses/expenses.py:28
-msgid "Groceries"
-msgstr "日用品"
+msgid "娛樂"
+msgstr ""
 
 #: expenses/expenses.py:29
-msgid "Medical"
-msgstr "醫療"
+msgid "日用品"
+msgstr ""
 
 #: expenses/expenses.py:30
-msgid "Social"
-msgstr "社交"
+msgid "醫療"
+msgstr ""
 
 #: expenses/expenses.py:31
-msgid "Gift"
-msgstr "禮物"
+msgid "社交"
+msgstr ""
 
 #: expenses/expenses.py:32
-msgid "Other"
-msgstr "其他"
+msgid "禮物"
+msgstr ""
+
+#: expenses/expenses.py:33
+msgid "其它"
+msgstr ""
 
 #: templates/expenses/keeping.html:28
 msgid "日期"
@@ -90,19 +90,11 @@ msgstr ""
 msgid "支出"
 msgstr ""
 
-#: templates/expenses/keeping.html:62
-#, python-format
-msgid ""
-"\n"
-"\t\t\t\t\t\t\t\t\t%(expensecategory.name)s\n"
-"\t\t\t\t\t\t\t\t"
-msgstr ""
-
-#: templates/expenses/keeping.html:102
+#: templates/expenses/keeping.html:101
 msgid "收入"
 msgstr ""
 
-#: templates/expenses/keeping.html:128
+#: templates/expenses/keeping.html:127
 #, python-format
 msgid "%(expensecategory.name)s"
 msgstr ""
