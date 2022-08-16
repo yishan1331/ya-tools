@@ -29,7 +29,7 @@ class ExpenseCategoryList(LoginRequiredMixin, ListView):
             '醫療': _('醫療'),  # Medical
             '社交': _('社交'),  # Social
             '禮物': _('禮物'),  # Gift
-            '其它': _('其它'),  # Other
+            '其他': _('其他'),  # Other
         }
 
     context_object_name = 'expensecategorylist'

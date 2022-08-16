@@ -55,14 +55,24 @@
 						>{{ the_category }}</label
 					>
 					<div class="col-sm-10">
-						{% for expensecategory in expensecategorylist %}
-						<tr>
-							<td>
-								{% trans expensecategory.name_CH %}
-							</td>
-							<td><i class="fa-solid {{ expensecategory.image }}"></i></td>
-						</tr>
-						{% endfor %}
+						<div class="row">
+							{% for expensecategory in expensecategorylist %}
+							<div class="col-3 text-center mb-2">
+								<button type="button" class="btn" :class="{'btn-primary': category === '{{ expensecategory.name }}'}" @click="category = '{{ expensecategory.name }}'">
+									<i class="fa-solid fa-2xl {{ expensecategory.image }}"></i>
+									<br>
+									{% trans expensecategory.name_CH %}
+								</button>
+							</div>
+							{% endfor %}
+							<div class="col-3 text-center">
+								<button type="button" class="btn">
+									<i class="fa-solid fa-2xl fa-plus"></i>
+									<br>
+									{% trans '新增' %}
+								</button>
+							</div>
+						</div>
 					</div>
 				</div>
 				<div class="row mb-3">
@@ -78,13 +88,13 @@
 					</div>
 				</div>
 				<div class="row mb-3">
-					<label for="remark" class="col-sm-2 col-form-label"
+					<label for="remarks" class="col-sm-2 col-form-label"
 						>{{ the_remarks }}</label
 					>
 					<div class="col-sm-10">
 						<b-form-textarea
-							id="remark"
-							v-model="remark"
+							id="remarks"
+							v-model="remarks"
 							placeholder="Enter something..."
 							rows="3"
 							max-rows="6"
@@ -119,14 +129,24 @@
 						>{{ the_category }}</label
 					>
 					<div class="col-sm-10">
-						{% for expensecategory in expensecategorylist %}
-						<tr>
-							<td>
-								{% trans expensecategory.name_CH %}
-							</td>
-							<td><i class="fa-solid {{ expensecategory.image }}"></i></td>
-						</tr>
-						{% endfor %}
+						<div class="row">
+							{% for expensecategory in expensecategorylist %}
+							<div class="col-3 text-center mb-2">
+								<button type="button" class="btn" :class="{'btn-primary': category === '{{ expensecategory.name }}'}" @click="category = '{{ expensecategory.name }}'">
+									<i class="fa-solid fa-2xl {{ expensecategory.image }}"></i>
+									<br>
+									{% trans expensecategory.name_CH %}
+								</button>
+							</div>
+							{% endfor %}
+							<div class="col-3 text-center">
+								<button type="button" class="btn">
+									<i class="fa-solid fa-2xl fa-plus"></i>
+									<br>
+									{% trans '新增' %}
+								</button>
+							</div>
+						</div>
 					</div>
 				</div>
 				<div class="row mb-3">
@@ -142,13 +162,13 @@
 					</div>
 				</div>
 				<div class="row mb-3">
-					<label for="remark" class="col-sm-2 col-form-label"
+					<label for="remarks" class="col-sm-2 col-form-label"
 						>{{ the_remarks }}</label
 					>
 					<div class="col-sm-10">
 						<b-form-textarea
-							id="remark"
-							v-model="remark"
+							id="remarks"
+							v-model="remarks"
 							placeholder="Enter something..."
 							rows="3"
 							max-rows="6"
@@ -161,7 +181,13 @@
 			</form>
 		</b-tab>
 	</b-tabs>
-	message [[message]]
+	date [[date]]
+	<br>
+	category [[category]]
+	<br>
+	amount [[amount]]
+	<br>
+	remarks [[remarks]]
 </div>
 {% endblock %} {% block script_command %}
 <script>
@@ -170,21 +196,11 @@
 		el: "#expenses_main",
 		data() {
 			return {
-				message: "Hello Vue!",
 				tabIndex: 0,
 				date: "",
 				category: null,
-				category_options: [
-					{ value: "A", text: "Option A (from options prop)" },
-					{ value: "B", text: "Option B (from options prop)" },
-				],
-				detail: null,
-				detail_options: [
-					{ value: "A", text: "Option A (from options prop)" },
-					{ value: "B", text: "Option B (from options prop)" },
-				],
 				amount: "",
-				remark: "",
+				remarks: "",
 			};
 		},
 		watch: {
@@ -192,15 +208,14 @@
 				handler(value) {
 					var vm = this;
 					let saveData = [
-						"tabIndex",
-						"category_options",
-						"detail_options",
+						"tabIndex"
 					];
 					vm.reset(saveData);
 				},
 			},
 		},
 		methods: {
+
 			//資料reset
 			reset(keep) {
 				var def = this.$options.data();
