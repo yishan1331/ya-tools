@@ -25,10 +25,12 @@
 </style>
 {% endblock %} {% block content %}
 
+{% get_current_language as LANGUAGE_CODE %}
 {% trans '日期' as the_date %}
 {% trans '類別' as the_category %}
 {% trans '金額' as the_amount %}
 {% trans '備註' as the_remarks %}
+{% trans '送出' as submit %}
 
 <div id="expenses_main" class="container mt-3" style="max-width: 700px">
 	<b-tabs v-model="tabIndex" content-class="mt-3" justified>
@@ -41,8 +43,8 @@
 					<div class="col-sm-10">
 						<b-form-datepicker
 							id="datepicker"
-							:date-format-options="{ year: 'numeric', month: 'narrow', day: 'numeric' }"
-							locale="zh"
+							:date-format-options="{ weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' }"
+							:locale="getNowLocale()"
 							calendar-width="100%"
 							menu-class="w-100"
 							hide-header
@@ -95,14 +97,13 @@
 						<b-form-textarea
 							id="remarks"
 							v-model="remarks"
-							placeholder="Enter something..."
 							rows="3"
 							max-rows="6"
 						></b-form-textarea>
 					</div>
 				</div>
 				<div class="row mb-3">
-					<button type="submit" class="btn btn-primary">送出</button>
+					<button type="submit" class="btn btn-primary">{{ submit }}</button>
 				</div>
 			</form>
 		</b-tab>
@@ -115,8 +116,8 @@
 					<div class="col-sm-10">
 						<b-form-datepicker
 							id="datepicker"
-							:date-format-options="{ year: 'numeric', month: 'narrow', day: 'numeric' }"
-							locale="zh"
+							:date-format-options="{ weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' }"
+							:locale="getNowLocale()"
 							calendar-width="100%"
 							menu-class="w-100"
 							hide-header
@@ -169,14 +170,13 @@
 						<b-form-textarea
 							id="remarks"
 							v-model="remarks"
-							placeholder="Enter something..."
 							rows="3"
 							max-rows="6"
 						></b-form-textarea>
 					</div>
 				</div>
 				<div class="row mb-3">
-					<button type="submit" class="btn btn-primary">送出</button>
+					<button type="submit" class="btn btn-primary">{{ submit }}</button>
 				</div>
 			</form>
 		</b-tab>
@@ -190,6 +190,7 @@
 	remarks [[remarks]]
 </div>
 {% endblock %} {% block script_command %}
+<script>const LANGUAGE = "{{ LANGUAGE_CODE }}";</script>
 <script>
 	const app = new Vue({
 		delimiters: ["[[", "]]"],
@@ -197,6 +198,7 @@
 		data() {
 			return {
 				tabIndex: 0,
+				today: "",
 				date: "",
 				category: null,
 				amount: "",
@@ -208,13 +210,63 @@
 				handler(value) {
 					var vm = this;
 					let saveData = [
-						"tabIndex"
+						"tabIndex",
+						"today"
 					];
 					vm.reset(saveData);
+					vm.date = vm.today;
 				},
 			},
 		},
+		created: function () {
+			this.getNow();
+		},
 		methods: {
+			getNow() {
+				let vm = this;
+				let weekdaysCountConfig = [
+					[Number(-6), Number(0)],
+					[Number(0), Number(6)],
+					[Number(-1), Number(5)],
+					[Number(-2), Number(4)],
+					[Number(-3), Number(3)],
+					[Number(-4), Number(2)],
+					[Number(-5), Number(1)],
+				];
+				let nowDate = new Date();
+				let returnobj = {};
+				returnobj = vm.dateFormat(nowDate);
+				console.log(returnobj);
+				vm.date = returnobj.year + "-" + returnobj.month + "-" + returnobj.day;
+				vm.today = returnobj.year + "-" + returnobj.month + "-" + returnobj.day;
+			},
+
+			dateFormat(time) {
+				let vm = this;
+				let weekdays = [
+					"星期日",
+					"星期一",
+					"星期二",
+					"星期三",
+					"星期四",
+					"星期五",
+					"星期六",
+				];
+				let thisDay = time.getDate();
+				if (thisDay < 10) thisDay = "0" + thisDay;
+				let thisMonth = time.getMonth() + 1;
+				if (thisMonth < 10) thisMonth = "0" + thisMonth;
+				return {
+					year: time.getFullYear(),
+					month: thisMonth,
+					day: thisDay,
+					weekday: weekdays[time.getDay()],
+				};
+			},
+
+			getNowLocale(){
+				return LANGUAGE === 'en' ? 'en' : 'zh'
+			},
 
 			//資料reset
 			reset(keep) {

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-16 18:02+0800\n"
+"POT-Creation-Date: 2022-08-17 16:52+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -70,31 +70,35 @@ msgstr ""
 msgid "其他"
 msgstr ""
 
-#: templates/expenses/keeping.html:28
+#: templates/expenses/keeping.html:29
 msgid "日期"
 msgstr ""
 
-#: templates/expenses/keeping.html:29
+#: templates/expenses/keeping.html:30
 msgid "類別"
 msgstr ""
 
-#: templates/expenses/keeping.html:30
+#: templates/expenses/keeping.html:31
 msgid "金額"
 msgstr ""
 
-#: templates/expenses/keeping.html:31
+#: templates/expenses/keeping.html:32
 msgid "備註"
 msgstr ""
 
-#: templates/expenses/keeping.html:35
+#: templates/expenses/keeping.html:33
+msgid "送出"
+msgstr ""
+
+#: templates/expenses/keeping.html:37
 msgid "支出"
 msgstr ""
 
-#: templates/expenses/keeping.html:69
+#: templates/expenses/keeping.html:74 templates/expenses/keeping.html:147
 msgid "新增"
 msgstr ""
 
-#: templates/expenses/keeping.html:105
+#: templates/expenses/keeping.html:110
 msgid "收入"
 msgstr ""
 
