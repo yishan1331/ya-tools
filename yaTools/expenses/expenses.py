@@ -1,9 +1,18 @@
 from django.views.generic import *
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.utils.translation import gettext_lazy as _
+from django.forms import ModelForm
+from django.core import serializers
+import json
 from .models import Expense, ExpenseCategory, Income
 
 # Create your views here.
+
+
+class ExpenseForm(ModelForm):
+    class Meta:
+        model = Expense
+        fields = '__all__'
 
 
 # 支出類別列表
@@ -12,7 +21,7 @@ class ExpenseCategoryList(LoginRequiredMixin, ListView):
     ordering = ['id']  # 正向排序
     # paginate_by = 10    # 每頁顯示幾筆
 
-    template_name = 'expenses/keeping.html'
+    template_name = 'expenses/list.html'
 
     def __init__(self):
         # 預設支出類別選項
@@ -45,13 +54,55 @@ class ExpenseCategoryList(LoginRequiredMixin, ListView):
         # context['default_trans_values'] = trans_values
         return context
 
+
+class ExpenseList(LoginRequiredMixin, ListView):
+    model = Expense
+    ordering = ['-date']  # 正向排序
+    # paginate_by = 10    # 每頁顯示幾筆
+
+    template_name = 'expenses/list.html'
+
+    context_object_name = 'expenselist'
+
+    def get_queryset(self):
+        category = {i['pk']: i['fields'] for i in json.loads(serializers.serialize(
+            "json", ExpenseCategory.objects.all(), fields=(
+                "id", "name", "name_CH", "image")))}
+        print(category)
+        queryset = [i['fields'] for i in json.loads(serializers.serialize(
+            "json", super().get_queryset().filter(user=self.request.user)))]
+        print(queryset)
+        return {
+            "result": queryset,
+            "category": category
+        }
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context
+
+
 # 新增支出紀錄
 
 
-class ExpenseCreate(LoginRequiredMixin, CreateView):
-    model = Expense
-    fields = '__all__'                  # 在表單上顯示*所有*欄位
-    template_name = 'form.html'         # 指定使用 form.html 這個頁面範本
+# class ExpenseCreate(LoginRequiredMixin, CreateView):
+#     model = Expense
+#     fields = '__all__'                  # 在表單上顯示*所有*欄位
+#     template_name = 'form.html'         # 指定使用 form.html 這個頁面範本
 
-    def get_success_url(self):
-        return reverse('expense_list')  # 新增成功返回支出紀錄列表頁面
+#     def get_success_url(self):
+#         return reverse('expense_list')  # 新增成功返回支出紀錄列表頁面
+def expenseCreate(request):
+    if request.method == "POST":
+        form = ExpenseForm(request.POST)
+        if form.is_valid():
+            try:
+                print('form', form)
+                # form.save()
+                # model = form.instance
+                return redirect('book-list')
+            except:
+                pass
+    else:
+        form = ExpenseForm()
+    return render(request, 'book-create.html', {'form': form})

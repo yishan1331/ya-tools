@@ -1,7 +1,19 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from django.conf import settings
 
 # Create your models here.
+
+
+class ExpenseCategory(models.Model):
+    # 欄位定義
+    name = models.CharField('類別名稱', max_length=30)
+    name_CH = models.CharField('中文類別名稱', max_length=30)
+    image = models.CharField('類別圖案', max_length=30)
+    time = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.name
 
 
 class Expense(models.Model):
@@ -24,25 +36,18 @@ class Expense(models.Model):
     )
     # 欄位定義
     item = models.CharField('項目', max_length=30)
-    category = models.CharField(
-        '支出類別', default='fa-burger', max_length=30, choices=CATE_CHOICES)
+    # category = models.CharField(
+    #     '支出類別', default='fa-burger', max_length=30, choices=CATE_CHOICES)
+    category = models.ForeignKey(
+        ExpenseCategory, on_delete=models.SET_NULL, null=True)
     amount = models.IntegerField('支出金額', default=0)
     remarks = models.CharField('備註', default=None, max_length=50)
-    time = models.DateTimeField(auto_now_add=True)
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    date = models.DateField(auto_now_add=True)
 
     def __str__(self):
         return self.item
-
-
-class ExpenseCategory(models.Model):
-    # 欄位定義
-    name = models.CharField('類別名稱', max_length=30)
-    name_CH = models.CharField('中文類別名稱', max_length=30)
-    image = models.CharField('類別圖案', max_length=30)
-    time = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return self.name
 
 
 class Income(models.Model):
@@ -62,7 +67,7 @@ class Income(models.Model):
     item = models.CharField('項目', max_length=30)
     category = models.IntegerField('收入類別', default=0, choices=CATE_CHOICES)
     amount = models.IntegerField('收入金額', default=0)
-    time = models.DateTimeField(auto_now_add=True)
+    date = models.DateField(auto_now_add=True)
 
     def __str__(self):
         return self.item

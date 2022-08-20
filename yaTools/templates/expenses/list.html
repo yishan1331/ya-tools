@@ -1,0 +1,130 @@
+{% extends "expenses/base.html" %} {% load i18n %} {% block style_command %}
+{% endblock %} {% block content %}
+
+{% get_current_language as LANGUAGE_CODE %}
+
+<div id="expenses_list" class="container mt-3" style="max-width: 700px">
+	<b-table striped hover :items="{{expenselist.result}}" :fields="fields">
+		<template #cell(category)="row">
+			<span v-text="{{ expenselist.category }}[row.value].name_CH"></span>
+			<i class="fa-solid fa-2xl" :class="{{ expenselist.category }}[row.value].image"></i>
+		</template>
+	</b-table>
+	<div class="text-center">
+		<b-button variant="outline-secondary" style="padding:0.2rem; border-radius: 100%" v-b-modal.modal-1><i class="fa-solid fa-xl fa-plus"></i></b-button>
+	</div>
+	<b-modal id="modal-1" title="BootstrapVue">
+		<p class="my-4">Hello from modal!</p>
+	</b-modal>
+</div>
+{% endblock %} {% block script_command %}
+<script>const LANGUAGE = "{{ LANGUAGE_CODE }}";</script>
+<script>
+	const app = new Vue({
+		delimiters: ["{[", "]}"],
+		el: "#expenses_list",
+		data() {
+			return {
+				tabIndex: 0,
+				today: "",
+				date: "",
+				category: null,
+				amount: "",
+				remarks: "",
+
+				fields: [
+					{
+						key: 'item',
+						sortable: true
+					},
+					{
+						key: 'category',
+						sortable: true
+					},
+					{
+						key: 'amount',
+						sortable: true,
+					},
+					{
+						key: 'date',
+						sortable: true,
+					}
+				]
+			};
+		},
+		watch: {
+			tabIndex: {
+				handler(value) {
+					var vm = this;
+					let saveData = [
+						"tabIndex",
+						"today"
+					];
+					vm.reset(saveData);
+					vm.date = vm.today;
+				},
+			},
+		},
+		created: function () {
+			this.getNow();
+		},
+		methods: {
+			getNow() {
+				let vm = this;
+				let weekdaysCountConfig = [
+					[Number(-6), Number(0)],
+					[Number(0), Number(6)],
+					[Number(-1), Number(5)],
+					[Number(-2), Number(4)],
+					[Number(-3), Number(3)],
+					[Number(-4), Number(2)],
+					[Number(-5), Number(1)],
+				];
+				let nowDate = new Date();
+				let returnobj = {};
+				returnobj = vm.dateFormat(nowDate);
+				console.log(returnobj);
+				vm.date = returnobj.year + "-" + returnobj.month + "-" + returnobj.day;
+				vm.today = returnobj.year + "-" + returnobj.month + "-" + returnobj.day;
+			},
+
+			dateFormat(time) {
+				let vm = this;
+				let weekdays = [
+					"星期日",
+					"星期一",
+					"星期二",
+					"星期三",
+					"星期四",
+					"星期五",
+					"星期六",
+				];
+				let thisDay = time.getDate();
+				if (thisDay < 10) thisDay = "0" + thisDay;
+				let thisMonth = time.getMonth() + 1;
+				if (thisMonth < 10) thisMonth = "0" + thisMonth;
+				return {
+					year: time.getFullYear(),
+					month: thisMonth,
+					day: thisDay,
+					weekday: weekdays[time.getDay()],
+				};
+			},
+
+			getNowLocale(){
+				return LANGUAGE === 'en' ? 'en' : 'zh'
+			},
+
+			//資料reset
+			reset(keep) {
+				var def = this.$options.data();
+				for (var i = 0; i < keep.length; i++) {
+					def[keep[i]] = this[keep[i]];
+				}
+				Object.assign(this.$data, def);
+				//https://codepen.io/karimcossutti/pen/ObXyKq
+			},
+		},
+	});
+</script>
+{% endblock %}

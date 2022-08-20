@@ -2,18 +2,17 @@
 <link href="{% static 'css/index.css' %}" rel="stylesheet" />
 {% endblock %} {% block content %}
 <div class="mx-auto container">
-	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+	<nav class="navbar navbar-expand-lg">
 		<div class="container-fluid">
 			<a class="navbar-brand h1 mb-0">YATools</a>
-			<div class="navbar-nav me-auto">
+			<div class="navbar-nav">
 				<span class="navbar-text">
 					Hi {{ user.username }} !
 				</span>
 			</div>
-			<div class="navbar-nav d-flex">
+			<div class="navbar-nav d-flex text-end">
 				<a class="nav-link" href="{% url 'logout' %}">
 					<span style="font-size:1em;">
-						Logout
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							width="20"
@@ -39,7 +38,7 @@
 	<div id="index" class="row justify-content-center">
 		<div class="col">
 			<a
-				href="{% url 'expenses:expenses_keeping' %}"
+				href="{% url 'expenses:expenses_list' %}"
 				class="btn btn-info btn-lg w-100 mb-1"
 				tabindex="-1"
 				role="button"
