@@ -1,20 +1,102 @@
 {% extends "expenses/base.html" %} {% load i18n %} {% block style_command %}
+<style>
+	.radiobtn {
+		margin-left: -1px !important;
+	}
+</style>
 {% endblock %} {% block content %}
 
 {% get_current_language as LANGUAGE_CODE %}
 
-<div id="expenses_list" class="container mt-3" style="max-width: 700px">
-	<b-table striped hover :items="{{expenselist.result}}" :fields="fields">
+<div
+	id="expenses_list"
+	class="container mt-3"
+	style="max-width: 700px"
+>
+	<b-table
+		striped
+		hover
+		:items="{{expenselist.result}}"
+		:fields="getNowLocale === 0 ? en_fields : zh_fields"
+	>
 		<template #cell(category)="row">
-			<span v-text="{{ expenselist.category }}[row.value].name_CH"></span>
-			<i class="fa-solid fa-2xl" :class="{{ expenselist.category }}[row.value].image"></i>
+			<span v-text="getNowLocale === 0 ? row.item.category_name : row.item.category_name_CH"></span>
+			<i
+				class="fa-solid fa-2xl"
+				:class="{{ expenselist.category }}[row.value].image"
+			></i>
 		</template>
 	</b-table>
 	<div class="text-center">
-		<b-button variant="outline-secondary" style="padding:0.2rem; border-radius: 100%" v-b-modal.modal-1><i class="fa-solid fa-xl fa-plus"></i></b-button>
+		<b-button
+			variant="outline-secondary"
+			style="padding:0.2rem; border-radius: 100%"
+			v-b-modal.add-modal
+		><i class="fa-solid fa-xl fa-plus"></i></b-button>
 	</div>
-	<b-modal id="modal-1" title="BootstrapVue">
-		<p class="my-4">Hello from modal!</p>
+	{[add_form]}
+	<b-modal
+		id="add-modal"
+		:title="getNowLocale === 0 ? 'Expense': '支出'"
+		@ok="handleOk"
+		@hidden="onReset"
+	>
+
+		<b-form
+			ref="add_form"
+			@submit.stop.prevent="onSubmit"
+		>
+			<b-form-group
+				v-for="(value, key) in add_form_fields"
+				:key="key"
+				:label="value.label[getNowLocale]"
+				:label-for="`input-${key}`"
+				style="width: 100%; padding: 5px"
+				:invalid-feedback="getNowLocale === 0 ? `${value.label[0]} is required`: `${value.label[1]}必填`"
+				:state="add_form_state.key"
+			>
+				<b-form-radio-group
+					v-if="value.type === 'radio'"
+					v-model="add_form[key]"
+					name="radio-options"
+					buttons
+					button-variant="outline-secondary"
+					size="sm"
+					style="max-width: 100%; width: 100%; margin: 0; display: flex;
+					justify-content: flex-start;
+					align-items: center;"
+					class="row"
+					:state="add_form_state.key"
+				>
+					<!-- :options="{{expenselist.category_options}}"
+					:text-field="getNowLocale === 0 ? 'text' : 'text_CH'" -->
+					<b-form-radio
+						v-for="(v, k) in {{expenselist.category_options}}"
+						:key="k"
+						:value="v.value"
+						class="col-2 mb-1 radiobtn"
+						style="border-radius: 0;"
+					>
+						<i
+							class="fa-solid fa-2xl"
+							:class="v.image"
+						></i>
+						<br>
+						{[ getNowLocale === 0 ? v.text : v.text_CH ]}
+					</b-form-radio>
+				</b-form-radio-group>
+				<b-form-input
+					v-else
+					:id="`input-${key}`"
+					class="col-12"
+					v-model="add_form[key]"
+					:type="value.type"
+					:placeholder="getNowLocale === 0 ? `Enter ${value.label[0]}`: `請輸入 ${value.label[1]}`"
+					:required="value.required"
+					:state="add_form_state.key"
+				></b-form-input>
+			</b-form-group>
+		</b-form>
 	</b-modal>
 </div>
 {% endblock %} {% block script_command %}
@@ -23,53 +105,104 @@
 	const app = new Vue({
 		delimiters: ["{[", "]}"],
 		el: "#expenses_list",
-		data() {
+		data () {
 			return {
-				tabIndex: 0,
+				lang_list: ['en', 'zh-hant'],
 				today: "",
-				date: "",
-				category: null,
-				amount: "",
-				remarks: "",
 
-				fields: [
+				en_fields: [
 					{
 						key: 'item',
+						label: 'item',
 						sortable: true
 					},
 					{
 						key: 'category',
+						label: 'category',
 						sortable: true
 					},
 					{
 						key: 'amount',
+						label: 'amount',
 						sortable: true,
 					},
 					{
 						key: 'date',
+						label: 'date',
 						sortable: true,
 					}
-				]
+				],
+				zh_fields: [
+					{
+						key: 'item',
+						label: '項目',
+						sortable: true
+					},
+					{
+						key: 'category',
+						label: '類別',
+						sortable: true
+					},
+					{
+						key: 'amount',
+						label: '金額',
+						sortable: true,
+					},
+					{
+						key: 'date',
+						label: '日期',
+						sortable: true,
+					}
+				],
+				category_list: [],
+				add_form: {
+					item: '',
+					category: '',
+					amount: '',
+					date: ''
+				},
+				add_form_state: {
+					item: null,
+					category: null,
+					amount: null,
+					date: null
+				},
+				add_form_fields: {
+					item: {
+						label: ['item', '項目'],
+						type: 'text',
+						required: true
+					},
+					category: {
+						label: ['category', '類別'],
+						type: 'radio',
+						required: true
+					},
+					amount: {
+						label: ['amount', '金額'],
+						type: 'number',
+						required: true
+					},
+					date: {
+						label: ['date', '日期'],
+						type: 'date',
+						required: true
+					},
+				}
 			};
 		},
 		watch: {
-			tabIndex: {
-				handler(value) {
-					var vm = this;
-					let saveData = [
-						"tabIndex",
-						"today"
-					];
-					vm.reset(saveData);
-					vm.date = vm.today;
-				},
-			},
 		},
 		created: function () {
 			this.getNow();
 		},
+		computed: {
+			getNowLocale () {
+				return this.lang_list.indexOf(LANGUAGE)
+			}
+		},
 		methods: {
-			getNow() {
+			getNow () {
 				let vm = this;
 				let weekdaysCountConfig = [
 					[Number(-6), Number(0)],
@@ -84,11 +217,10 @@
 				let returnobj = {};
 				returnobj = vm.dateFormat(nowDate);
 				console.log(returnobj);
-				vm.date = returnobj.year + "-" + returnobj.month + "-" + returnobj.day;
 				vm.today = returnobj.year + "-" + returnobj.month + "-" + returnobj.day;
 			},
 
-			dateFormat(time) {
+			dateFormat (time) {
 				let vm = this;
 				let weekdays = [
 					"星期日",
@@ -111,12 +243,35 @@
 				};
 			},
 
-			getNowLocale(){
-				return LANGUAGE === 'en' ? 'en' : 'zh'
+			transItemsText (text) {
+				console.log(text)
+				return text
 			},
-
+			handleOk (bvModalEvent) {
+				bvModalEvent.preventDefault()
+				this.onSubmit()
+			},
+			onSubmit () {
+				console.log('!!!!!');
+				// if (!this.checkFormValidity()) {
+				// 	return
+				// }
+			},
+			checkFormValidity () {
+				const valid = this.$refs.add_form.checkValidity()
+				console.log(valid);
+				// this.nameState = valid
+				return valid
+			},
+			onReset () {
+				var vm = this;
+				let saveData = [
+					"today"
+				];
+				vm.reset(saveData);
+			},
 			//資料reset
-			reset(keep) {
+			reset (keep) {
 				var def = this.$options.data();
 				for (var i = 0; i < keep.length; i++) {
 					def[keep[i]] = this[keep[i]];

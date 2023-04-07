@@ -32,6 +32,7 @@ class Expense(models.Model):
         ('Medical', "fa-hospital"),  # 醫療
         ('Social', "fa-people-group"),  # 社交
         ('Gift', "fa-gift"),  # 禮物
+        ('Pet', "fa-cat"),  # 寵物
         ('Other', "fa-border-all"),  # 其它
     )
     # 欄位定義

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-17 16:52+0800\n"
+"POT-Creation-Date: 2023-01-18 16:38+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,87 +18,87 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: expenses/expenses.py:20
+#: expenses/expenses.py:29
 msgid "早餐"
 msgstr "Breakfast"
 
-#: expenses/expenses.py:21
+#: expenses/expenses.py:30
 msgid "午餐"
 msgstr "Lunch"
 
-#: expenses/expenses.py:22
+#: expenses/expenses.py:31
 msgid "晚餐"
 msgstr "Dinner"
 
-#: expenses/expenses.py:23
+#: expenses/expenses.py:32
 msgid "飲料"
 msgstr "Drinks"
 
-#: expenses/expenses.py:24
+#: expenses/expenses.py:33
 msgid "酒類"
 msgstr "Liquor"
 
-#: expenses/expenses.py:25
+#: expenses/expenses.py:34
 msgid "交通"
 msgstr "Traffic"
 
-#: expenses/expenses.py:26
+#: expenses/expenses.py:35
 msgid "購物"
 msgstr "Shopping"
 
-#: expenses/expenses.py:27
+#: expenses/expenses.py:36
 msgid "娛樂"
 msgstr "Entertainment"
 
-#: expenses/expenses.py:28
+#: expenses/expenses.py:37
 msgid "日用品"
 msgstr "Groceries"
 
-#: expenses/expenses.py:29
+#: expenses/expenses.py:38
 msgid "醫療"
 msgstr "Medical"
 
-#: expenses/expenses.py:30
+#: expenses/expenses.py:39
 msgid "社交"
 msgstr "Social"
 
-#: expenses/expenses.py:31
+#: expenses/expenses.py:40
 msgid "禮物"
 msgstr "Gift"
 
-#: expenses/expenses.py:32
+#: expenses/expenses.py:41
 msgid "其他"
 msgstr "Other"
 
-#: templates/expenses/keeping.html:29
+#: templates/expenses/create.html:29
 msgid "日期"
 msgstr "Date"
 
-#: templates/expenses/keeping.html:30
+#: templates/expenses/create.html:30
 msgid "類別"
 msgstr "Category"
 
-#: templates/expenses/keeping.html:31
+#: templates/expenses/create.html:31
 msgid "金額"
 msgstr "Amount"
 
-#: templates/expenses/keeping.html:32
+#: templates/expenses/create.html:32
 msgid "備註"
 msgstr "Remarks"
 
-#: templates/expenses/keeping.html:33
+#: templates/expenses/create.html:33
 msgid "送出"
 msgstr "Submit"
 
-#: templates/expenses/keeping.html:37
+#: templates/expenses/create.html:37
 msgid "支出"
 msgstr "Expense"
 
-#: templates/expenses/keeping.html:74 templates/expenses/keeping.html:147
+#: templates/expenses/create.html:74 templates/expenses/create.html:147
 msgid "新增"
 msgstr "Add"
 
-#: templates/expenses/keeping.html:110
+#: templates/expenses/create.html:110
 msgid "收入"
 msgstr "Income"
 
